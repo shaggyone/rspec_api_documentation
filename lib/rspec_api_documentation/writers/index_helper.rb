@@ -5,7 +5,7 @@ module RspecApiDocumentation
     module IndexHelper
       def sections(examples, configuration)
         resources = examples.group_by(&:resource_name).inject([]) do |arr, (resource_name, examples)|
-          grouped_examples = examples.group_by { |ex| ex.example_group[:description] }.map { |path, examples| { request_path: path, examples: examples } }
+          grouped_examples = examples.group_by(&:full_route).map { |full_route, examples| { full_route: full_route, examples: examples } }
           arr.push(:resource_name => resource_name, :requests => grouped_examples)
         end
         configuration.keep_source_order ? resources : resources.sort_by { |resource| resource[:resource_name] }

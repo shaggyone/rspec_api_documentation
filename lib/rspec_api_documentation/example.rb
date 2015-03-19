@@ -50,6 +50,10 @@ module RspecApiDocumentation
       filter_headers(metadata[:requests]) || []
     end
 
+    def full_route
+      [example_group[:method].to_s.upcase, example_group[:route]].join(' ')
+    end
+
     private
 
     def filter_headers(requests)
